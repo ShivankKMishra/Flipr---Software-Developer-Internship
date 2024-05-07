@@ -12,6 +12,12 @@ const productController = require('./product.controller');
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+  origin:["https://flipr-software-developer-internship.vercel.app"],
+  methods:["post","Get"],
+  credentials:"true"
+}))
+
 mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocjo.mongodb.net/<database>', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -20,6 +26,11 @@ mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocj
 }).catch((error) => {
   console.error('Error connecting to MongoDB:', error);
 }); 
+
+
+app.get("/",(req,res)=>{
+  res.json("hello");
+});
 
 app.get('/api/customers', customerController.getAllCustomers);
 app.post('/api/customers', customerController.addCustomer);
