@@ -8,6 +8,7 @@ import Login from './components/Pages/Login/Login.jsx';
 import Layout from './components/Layout/Layout.jsx';
 import Home from './components/Pages/Home/Home.jsx';
 import CustomerManagement from './components/CustomerManagement/CustomerManagement.jsx';
+import AddProduct from './components/AddProducts/AddProducts.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: '/Home/CustomerManagement',
         element: <CustomerManagement />,
+      },
+      {
+        path: '/Home/AddProducts',
+        element: <AddProduct />,
       },
        
     ],

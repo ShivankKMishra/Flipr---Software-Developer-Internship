@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./models/user.model');
 const customerController = require('./customer.controller');
+const productController = require('./product.controller');
+
 app.use(cors());
 app.use(express.json());
 
@@ -22,6 +24,9 @@ mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocj
 app.get('/api/customers', customerController.getAllCustomers);
 app.post('/api/customers', customerController.addCustomer);
 app.delete('/api/customers/:id', customerController.deleteCustomer);
+
+app.get('/api/products',productController.getAllProducts);
+app.post('/api/products', productController.addProduct);
 
 
 app.post('/api/register', async (req, res) => {

@@ -11,6 +11,9 @@ const Header = () => {
           Admin Panel
         </Typography>
         <div className="flex items-center space-x-4">
+         <Button component={NavLink} to="/Home/AddProducts" color="inherit" activeclassname="font-bold">
+           AddProducts
+          </Button>
           <Button component={NavLink} to="/Home/CustomerManagement" color="inherit" activeclassname="font-bold">
             Customer Management
           </Button>

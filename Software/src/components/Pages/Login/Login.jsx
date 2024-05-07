@@ -22,8 +22,9 @@ export default function Login() {
 
       const data = await response.json();
 
-      if (data.status === "ok") {
+      if (response.ok) {
         // Redirect to home page on successful login
+        localStorage.setItem('token', data.token); // Store the token in local storage
         window.location.href = "/home";
       } else {
         setError("Invalid email or password");
