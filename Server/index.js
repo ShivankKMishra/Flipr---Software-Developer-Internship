@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocj
   console.log('MongoDB connected');
 }).catch((error) => {
   console.error('Error connecting to MongoDB:', error);
-});
+}); 
 
 app.post('/api/register', async (req, res) => {
     try {
