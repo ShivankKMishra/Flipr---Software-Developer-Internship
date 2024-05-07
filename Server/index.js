@@ -11,6 +11,8 @@ const productController = require('./product.controller');
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.use(cors({
   origin:["https://flipr-software-developer-internship.vercel.app"],
   methods:["post","Get"],
@@ -27,9 +29,7 @@ mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocj
 }); 
 
 
-app.get("/",(req,res)=>{
-  res.json("hello");
-});
+
 
 app.get('/api/customers', customerController.getAllCustomers);
 app.post('/api/customers', customerController.addCustomer);
