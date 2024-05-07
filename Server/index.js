@@ -1,0 +1,76 @@
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('./models/user.model');
+
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocjo.mongodb.net/<database>', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('MongoDB connected');
+}).catch((error) => {
+  console.error('Error connecting to MongoDB:', error);
+});
+
+app.post('/api/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({ status: 'error', message: 'User already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        const token = jwt.sign({ email: user.email }, 'secretkey'); 
+        user.token = token;
+        await user.save();
+
+        return res.json({ status: 'ok', user });
+    } catch (error) {
+        console.error('Error registering user:', error);
+        return res.status(500).json({ status: 'error', message: 'Internal server error' });
+    }
+});
+
+app.post('/api/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ status: 'error', message: 'User not found' });
+        }
+
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ status: 'error', message: 'Incorrect password' });
+        }
+
+        const token = jwt.sign({ email: user.email }, 'secretkey'); 
+        user.token = token;
+        await user.save();
+
+        return res.json({ status: 'ok', message: 'Login successful', token });
+    } catch (error) {
+        console.error('Error logging in:', error);
+        return res.status(500).json({ status: 'error', message: 'Internal server error' });
+    }
+});
+
+const PORT = process.env.PORT || 1337;
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+});
