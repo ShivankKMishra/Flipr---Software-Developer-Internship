@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -22,8 +23,8 @@ export default function Login() {
       const data = await response.json();
 
       if (data.status === "ok") {
-        // Handle successful login, redirect user or set logged in state
-        console.log("Login successful!");
+        // Redirect to home page on successful login
+        window.location.href = "/home";
       } else {
         setError("Invalid email or password");
       }
@@ -60,6 +61,9 @@ export default function Login() {
             Login
           </button>
         </form>
+        <p className="mt-4 text-sm text-center">
+          Don't have an account? <Link to="/" className="text-indigo-600 hover:underline">Register here</Link>
+        </p>
       </div>
     </div>
   );

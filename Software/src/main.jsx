@@ -4,7 +4,10 @@ import App from './App.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import Login from './assets/components/Login/Login.jsx';
+import Login from './components/Pages/Login/Login.jsx';
+import Layout from './components/Layout/Layout.jsx';
+import Home from './components/Pages/Home/Home.jsx';
+import CustomerManagement from './components/CustomerManagement/CustomerManagement.jsx';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +18,22 @@ const router = createBrowserRouter([
     path: '/Login',
     element:<Login/>
   },
-  
+  {
+    path: '/Home',
+    element: <Layout />,
+    children: [
+      {
+        path: '',
+        element: <Home />,
+      },
+      {
+        path: '/Home/CustomerManagement',
+        element: <CustomerManagement />,
+      },
+       
+    ],
+  },
+
   
   
 ]);

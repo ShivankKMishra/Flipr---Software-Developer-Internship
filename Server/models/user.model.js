@@ -1,3 +1,4 @@
+// Server\models\user.model.js
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({

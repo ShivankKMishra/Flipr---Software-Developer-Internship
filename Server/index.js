@@ -1,3 +1,4 @@
+// Server\index.js
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -5,7 +6,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./models/user.model');
-
+const customerController = require('./customer.controller');
 app.use(cors());
 app.use(express.json());
 
@@ -17,6 +18,11 @@ mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocj
 }).catch((error) => {
   console.error('Error connecting to MongoDB:', error);
 }); 
+
+app.get('/api/customers', customerController.getAllCustomers);
+app.post('/api/customers', customerController.addCustomer);
+app.delete('/api/customers/:id', customerController.deleteCustomer);
+
 
 app.post('/api/register', async (req, res) => {
     try {
