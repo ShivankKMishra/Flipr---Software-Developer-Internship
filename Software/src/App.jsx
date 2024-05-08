@@ -70,6 +70,10 @@ export default function App() {
             Register
           </button>
         </form>
+        <div className="mt-4 text-center">
+          <span>Already have an account? </span>
+          <a href="/login" className="text-indigo-600 hover:underline">Login</a>
+        </div>
       </div>
     </div>
   );
