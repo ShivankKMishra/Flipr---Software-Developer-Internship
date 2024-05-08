@@ -60,7 +60,7 @@ app.post('/api/register', async (req, res) => {
             password: hashedPassword
         });
 
-        const token = jwt.sign({ email: user.email }, 'secretkey'); 
+        const token = jwt.sign({ email: user.email }, process.env.SECRETE_KEY); 
         user.token = token;
         await user.save();
 
@@ -85,7 +85,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ status: 'error', message: 'Incorrect password' });
         }
 
-        const token = jwt.sign({ email: user.email }, 'secretkey'); 
+        const token = jwt.sign({ email: user.email }, process.env.SECRETE_KEY); 
         user.token = token;
         await user.save();
 
@@ -96,7 +96,8 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 1337;
+
+const PORT = process.env.PORT ;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
