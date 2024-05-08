@@ -14,19 +14,24 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.use(cors({
-  origin:["https://flipr-software-developer-internship.vercel.app"],
-  methods:["post","Get"],
-  credentials:"true"
-}))
+  origin: ["https://flipr-software-developer-internship.vercel.app"],
+  methods: ["post", "get"],
+  credentials: true
+}));
 
-mongoose.connect('mongodb+srv://shivankvgmishra:cEPq3kqmv5jpeJxu@cluster0.vbwocjo.mongodb.net/<database>', {
+
+require('dotenv').config();
+
+
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
   console.log('MongoDB connected');
 }).catch((error) => {
   console.error('Error connecting to MongoDB:', error);
-}); 
+});
+
 
 
 
